@@ -8,47 +8,66 @@
 
 using namespace std;
 
+class superInt{
+    public:
+    int value;
+    superInt(int value) 
+    {
+        this->value = value;
+    }
+
+    bool operator<(const superInt& other) const
+    {
+        return value < other.value;
+    }
+    bool operator>(const superInt& other) const
+    {
+        return value > other.value;
+    }
+};
+
 int main()
 {
     srand(time(NULL));
-    deque<long> dq;
-    multiset<long> mlst;
+    deque<superInt> dq;
+    multiset<superInt> mlst;
 
     for (int i = 0; i < 20; i++)
     {
-        dq.push_back(rand() % 50);
-        cout<<dq[i]<<" ";
+        superInt b(rand() % 50);
+        dq.push_back(b);
+        cout<<dq[i].value<<" ";
     }
     cout<<endl;
     cout<<endl;
 
     cout<<"Sorted:\n";
-    sort(dq.begin(),dq.end(),greater());
+    sort(dq.begin(),dq.end(),greater<superInt>());
 
     for (int i = 0; i < dq.size(); i++)
-        cout<<dq[i]<<" ";
+        cout<<dq[i].value<<" ";
     cout<<endl;
     cout<<endl;
 
     cout<<"Is more than 25:\n";
     for (int i = 0; i < dq.size(); i++)
     {
-        if(dq[i] > 25)
+        if(dq[i].value > 25)
         {
             mlst.insert(dq[i]);
-            cout<<dq[i]<<" ";
+            cout<<dq[i].value<<" ";
         }
     }
     cout<<endl;
     cout<<endl;
 
     cout<<"Multiset with chosen values: \n";
-    multiset <long> :: iterator it = mlst.begin();
+    multiset <superInt> :: iterator it = mlst.begin();
     for (int i = 0; i < mlst.size(); i++,it++)
     {
-        cout<<*it<<" ";
+        cout<<it->value<<" ";
     }
-    cout<<endl;
+    cout<<endl; 
     cout<<endl;
 
 
@@ -56,16 +75,16 @@ int main()
     it = mlst.begin();
     cout<<"Sorted first and second: \n";
     for (int i = 0; i < dq.size(); i++)
-        cout<<dq[i]<<" ";
+        cout<<dq[i].value<<" ";
     cout<<endl;
 
     for (int i = 0; i < mlst.size(); i++,it++)
-        cout<<*it<<" ";
+        cout<<it->value<<" ";
     cout<<endl;
     cout<<endl;
     
 
-    vector<long> vct;
+    vector<superInt> vct;
 
     for (int i = 0; i < dq.size(); i++)
     {
@@ -79,8 +98,8 @@ int main()
     int count{};
     for (int i = 0; i < vct.size(); i++)
     {
-        cout<<vct[i]<<" ";
-        if(vct[i]>25)
+        cout<<vct[i].value<<" ";
+        if(vct[i].value>25)
             count++;
     }
     cout<<endl<<endl;
